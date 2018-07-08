@@ -1,9 +1,18 @@
-const express = require('express');
-const path = require('path');
-const open = require('opn');
+import express from 'express';
+import path from 'path';
+import opn from 'opn';
+import webpack from 'webpack';
+import config from '../webpack.config.dev';
 
-let port = 3000;
+const port = 3000;
 const app = express();
+const complier = webpack(config);
+
+//webpack middleware for express
+app.use(require('webpack-dev-middleware')(complier,{
+  noInfo:true,
+  publicPath:config.output.publicPath
+}));
 
 // default route & send index.html file
 app.get('/', (req, res) => {
@@ -15,6 +24,7 @@ app.listen(port, (err) => {
   if (err) {
     console.log(err);
   } else {
-    open(`http://localhost:${port}`);
+    console.log(`development server started on port no:${port}`)
+    opn(`http://localhost:${port}`);
   }
 })
