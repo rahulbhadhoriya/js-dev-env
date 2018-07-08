@@ -8,6 +8,7 @@ const port = 3000;
 const app = express();
 const complier = webpack(config);
 
+/* eslint-disable no-console */
 //webpack middleware for express
 app.use(require('webpack-dev-middleware')(complier,{
   noInfo:true,
