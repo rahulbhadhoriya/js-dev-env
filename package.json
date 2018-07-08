@@ -4,14 +4,19 @@
   "description": "A fully configurable JavaScript Development Environment for faster development.",
   "main": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prestart": "node buildScripts/startMessage.js",
+    "start": "npm-run-all --parallel security-check open:src",
+    "open:src": "node buildScripts/srcServer.js",
+    "security-check": "npm audit",
+    "localtunnel": "lt --port 3000 --subdomain rahul",
+    "share": "npm-run-all --parallel open:src localtunnel"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rahulbhadhoriya/js-dev-env.git"
   },
   "author": "Rahul Bhadhoriya",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/rahulbhadhoriya/js-dev-env/issues"
   },
